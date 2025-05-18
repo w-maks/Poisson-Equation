@@ -7,7 +7,10 @@ int main() {
     constexpr double x0 = 4.0;
     constexpr int itMax = 500;
 
-    PoissonSolver solver(N, dx, d, x0);
-    solver.run(itMax);
+    PoissonSolver solver1(N, dx, d, x0, 1, "zad1");
+    solver1.run(itMax, true);
+
+    PoissonSolver solver2(N, dx, d, x0, 1.9, "zad2");
+    solver2.run(itMax);
     return 0;
 }
