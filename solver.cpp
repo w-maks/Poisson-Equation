@@ -26,7 +26,7 @@ double PoissonSolver::S() const {
     double S_value = 0.0;
     for (int i = 1; i < 2*N; ++i) {
         for (int j = 1; j < 2*N; ++j) {
-            S_value += 0.5 * u(i,j) * (laplacian(u,i,j) + rho(i,j));
+            S_value += 0.5 * u(i,j) * laplacian(u,i,j) + u(i,j) * rho(i,j);
         }
     }
     return -S_value * dx * dx;
