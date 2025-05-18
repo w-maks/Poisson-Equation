@@ -1,0 +1,6 @@
+# ninja log v6
+1	94	1747592309625932728	build.ninja	c772bbc5a8e56cf0
+2	772	1747592309654933613	CMakeFiles/Poisson_Equation.dir/grid.cpp.o	d493ae1889606520
+5	1155	1747592309657933704	CMakeFiles/Poisson_Equation.dir/main.cpp.o	5be57809d4d38bb9
+3	2537	1747592309655933643	CMakeFiles/Poisson_Equation.dir/solver.cpp.o	3d52d4fae4f45565
+2538	2819	1747592312192011009	Poisson_Equation	7ef023fed06a06d3

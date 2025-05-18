@@ -1,0 +1,4 @@
+/home/rime/c++/CLion-2024.2.3/clion-2024.2.3/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/rime/c++/CLion-2024.2.3/clion-2024.2.3/bin/ninja/linux/x64/ninja -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G Ninja -S /home/rime/Poisson-Equation -B /home/rime/Poisson-Equation/cmake-build-debug
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/rime/Poisson-Equation/cmake-build-debug

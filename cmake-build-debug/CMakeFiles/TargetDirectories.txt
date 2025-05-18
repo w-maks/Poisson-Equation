@@ -1,0 +1,3 @@
+/home/rime/Poisson-Equation/cmake-build-debug/CMakeFiles/Poisson_Equation.dir
+/home/rime/Poisson-Equation/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rime/Poisson-Equation/cmake-build-debug/CMakeFiles/rebuild_cache.dir
