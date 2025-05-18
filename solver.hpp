@@ -14,7 +14,7 @@ private:
     Grid u, rho;
 
     void fillRho();
-    double calculateRhoPrim(const Grid& g, int i, int j) const;
+    double laplacian(const Grid& g, int i, int j) const;
     double S() const;
     void gridSaver(const Grid& g, const std::string& name) const;
 };

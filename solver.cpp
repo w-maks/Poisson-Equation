@@ -18,19 +18,18 @@ void PoissonSolver::fillRho() {
     }
 }
 
-double PoissonSolver::calculateRhoPrim(const Grid& g, const int i, const int j) const {
-    return -(g(i+1,j)+g(i-1,j)+g(i,j+1)+g(i,j-1)-4*g(i,j)) / (dx*dx);
+double PoissonSolver::laplacian(const Grid& g, const int i, const int j) const {
+    return (g(i+1,j)+g(i-1,j)+g(i,j+1)+g(i,j-1)-4*g(i,j)) / (dx*dx);
 }
 
 double PoissonSolver::S() const {
     double S_value = 0.0;
     for (int i = 1; i < 2*N; ++i) {
         for (int j = 1; j < 2*N; ++j) {
-            const double term = 0.5 * u(i,j) * (calculateRhoPrim(u,i,j) - rho(i,j));
-            S_value += term;
+            S_value += 0.5 * u(i,j) * (laplacian(u,i,j) + rho(i,j));
         }
     }
-    return S_value * dx * dx;
+    return -S_value * dx * dx;
 }
 
 void PoissonSolver::gridSaver(const Grid& g, const std::string& name) const {
@@ -63,7 +62,7 @@ void PoissonSolver::run(int iterations) {
 
             for (int i = 1; i < 2 * N; ++i) {
                 for (int j = 1; j < 2 * N; ++j) {
-                    rhoPrim(i, j) = calculateRhoPrim(u, i, j);
+                    rhoPrim(i, j) = -laplacian(u, i, j);
                     delta(i, j) = rhoPrim(i, j) - rho(i, j);
                 }
             }
