@@ -16,8 +16,8 @@ int main() {
     //PoissonSolver solver3(N, dx, d, x0, 1, "zad3");
     //solver3.runParabolic(itMax);
 
-    PoissonSolver solver4(N, dx, d, x0, 1, "zad4");
-    solver4.runGradient(itMax);
+    //PoissonSolver solver4(N, dx, d, x0, 1, "zad4");
+    //solver4.runGradient(itMax);
 
     return 0;
 }
