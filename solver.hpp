@@ -8,7 +8,7 @@ public:
     PoissonSolver(int N, double dx, double d, double x0, double omega = 1.0, std::string addon = "");
     void run(int iterations, bool flag=false);
     void runParabolic(int iterations);
-    void runGradient(int iterations, const std::vector<double>& betas = {0.25, 0.3, 0.35, 0.4, 0.45, 0.5}, double delta = 0.001);
+    void runGradient(int iterations, const std::vector<double>& betas = {0.25, 0.35, 0.45, 0.497, 0.5}, double delta = 0.001);
 
 private:
     const int N;
