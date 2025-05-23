@@ -141,7 +141,10 @@ void PoissonSolver::runGradient(int iterations, const std::vector<double>& betas
         for (int iter = 1; iter <= iterations; ++iter) {
             for (int i = 1; i < 2 * N; ++i) {
                 for (int j = 1; j < 2 * N; ++j) {
-                    const double grad  = (Sloc(i, j,  delta) - Sloc(i, j, -delta)) / (2 * delta);
+                    const double Sloc0 = Sloc(i,j, 0.0);
+                    const double Splus  = S0 - Sloc0 + Sloc(i, j,  delta);
+                    const double Sminus = S0 - Sloc0 + Sloc(i, j, -delta);
+                    const double grad  = (Splus - Sminus) / (2 * delta);
                     u(i, j) -= beta * grad;
                 }
             }
