@@ -97,7 +97,7 @@ void PoissonSolver::run(int iterations, bool flag) {
 void PoissonSolver::runParabolic(const int iterations) {
     std::ofstream sFile("S(iteration)" + addon + ".csv");
     sFile << "iteration,S\n";
-    double S0 = S();
+    const double S0 = S();
     sFile << 0 << ',' << S0 << '\n';
 
     for (int iter = 1; iter <= iterations; ++iter) {
@@ -124,10 +124,9 @@ void PoissonSolver::runParabolic(const int iterations) {
                     }
                 }
                 u(i,j) += bestDelta;
-                S0 = bestS;
             }
         }
-        sFile << iter << ',' << S0 << '\n';
+        sFile << iter << ',' << S() << '\n';
     }
 }
 
