@@ -52,8 +52,6 @@ double PoissonSolver::Sloc(int i0, int j0, const double delta) const
     return -S_value * dx * dx;
 }
 
-
-
 void PoissonSolver::gridSaver(const Grid& g, const std::string& name) const {
     std::ofstream out(name);
     out << "i,j,value\n";
@@ -96,37 +94,42 @@ void PoissonSolver::run(int iterations, bool flag) {
     }
 }
 
-void PoissonSolver::runParabolic(int iterations)
-{
-    std::ofstream fout("S(iteration)" + addon + ".csv");
-    fout << "iteration,S\n";
-    fout << 0 << ',' << S() << '\n';
+void PoissonSolver::runParabolic(const int iterations) {
+    std::ofstream sFile("S(iteration)" + addon + ".csv");
+    sFile << "iteration,S\n";
 
-    for (int iter = 1; iter <= iterations; ++iter)
-    {
-        for (int i = 1; i < 2 * N; ++i)
-            for (int j = 1; j < 2 * N; ++j)
-            {
-                double S0  = Sloc(i,j, 0.0);
-                double S05 = Sloc(i,j, 0.5);
-                double S1  = Sloc(i,j, 1.0);
+    double S0 = S();
 
-                double denom = S0 - 2*S05 + S1;
-                double delta4 = (std::fabs(denom) > 1e-12) ? 0.25 * (3*S0 - 4*S05 + S1) / denom : 0.0;
+    sFile << 0 << ',' << S0 << '\n';
 
-                const double cand[4] = {0.0, 0.5, 1.0, delta4};
-                double bestDelta = 0.0, bestS = S0;
+    for (int iter = 1; iter <= iterations; ++iter) {
+        for (int i = 1; i < 2 * N; ++i) {
+            for (int j = 1; j < 2 * N; ++j) {
 
-                for (double d : cand) {
-                    double Sd = Sloc(i,j, d);
-                    if (Sd < bestS) {
-                        bestS = Sd; bestDelta = d;
+                const double Sloc0 = Sloc(i,j, 0.0);
+                const double S1 = S0;
+                const double S2 = S0 - Sloc0 + Sloc(i, j, 0.5);
+                const double S3 = S0 - Sloc0 + Sloc(i, j, 1);
+
+                const double denominator = S1 - 2 * S2 + S3;;
+                const double delta4 = (std::fabs(denominator) > 1e-12) ? 0.25 * (3 * S1 - 4 * S2 + S3) / denominator : 0.0;
+
+                const double S4 = S0 - Sloc0 + Sloc(i, j, delta4);
+
+                const double deltas[4] = {0, 0.5, 1, delta4};
+                const double S[4] = {S1, S2, S3, S4};
+
+                double bestDelta = 0.0, bestS = S1;
+
+                for (int k = 1; k < 4; ++k) {
+                    if (S[k] < bestS) {
+                        bestS = S[k]; bestDelta = deltas[k];
                     }
                 }
-
                 u(i,j) += bestDelta;
+                S0 = bestS;
             }
-
-        fout << iter << ',' << S() << '\n';
+        }
+        sFile << iter << ',' << S0 << '\n';
     }
 }
