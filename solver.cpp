@@ -97,15 +97,12 @@ void PoissonSolver::run(int iterations, bool flag) {
 void PoissonSolver::runParabolic(const int iterations) {
     std::ofstream sFile("S(iteration)" + addon + ".csv");
     sFile << "iteration,S\n";
-
     double S0 = S();
-
     sFile << 0 << ',' << S0 << '\n';
 
     for (int iter = 1; iter <= iterations; ++iter) {
         for (int i = 1; i < 2 * N; ++i) {
             for (int j = 1; j < 2 * N; ++j) {
-
                 const double Sloc0 = Sloc(i,j, 0.0);
                 const double S1 = S0;
                 const double S2 = S0 - Sloc0 + Sloc(i, j, 0.5);
@@ -133,3 +130,23 @@ void PoissonSolver::runParabolic(const int iterations) {
         sFile << iter << ',' << S0 << '\n';
     }
 }
+
+void PoissonSolver::runGradient(int iterations, const std::vector<double>& betas, double delta) {
+    for (const double beta : betas) {
+        std::ofstream sFile("S(iteration)[beta="+ std::to_string(beta)+ "]" + addon + ".csv");
+        sFile << "iteration,S\n";
+        const double S0 = S();
+        sFile << 0 << ',' << S0 << '\n';
+
+        for (int iter = 1; iter <= iterations; ++iter) {
+            for (int i = 1; i < 2 * N; ++i) {
+                for (int j = 1; j < 2 * N; ++j) {
+                    const double grad  = (Sloc(i, j,  delta) - Sloc(i, j, -delta)) / (2 * delta);
+                    u(i, j) -= beta * grad;
+                }
+            }
+            sFile << iter << ',' << S() << '\n';
+        }
+    }
+}
+
