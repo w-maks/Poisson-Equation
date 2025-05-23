@@ -19,7 +19,7 @@ private:
     void fillRho();
     double laplacian(const Grid& g, int i, int j) const;
     double S() const;
-    double Sloc(int i, int j) const;
+    double Sloc(int i, int j, double delta) const;
     void gridSaver(const Grid& g, const std::string& name) const;
 };
 #endif

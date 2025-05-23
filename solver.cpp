@@ -34,15 +34,25 @@ double PoissonSolver::S() const {
     return -S_value * dx * dx;
 }
 
-double PoissonSolver::Sloc(int i0, int j0) const {
+double PoissonSolver::Sloc(int i0, int j0, const double delta) const
+{
+    auto u_loc = [&](int i, int j) -> double {
+        return (i == i0 && j == j0) ? u(i, j) + delta : u(i, j);
+    };
+
+    auto lap = [&](int i, int j) -> double {
+        return (u_loc(i+1,j) + u_loc(i-1,j) + u_loc(i,j+1) + u_loc(i,j-1) - 4*u_loc(i,j)) / (dx * dx);
+    };
+
     double S_value = 0.0;
-    for(int i= i0-1; i <= i0+1; ++i) {
-        for(int j= j0-1; j <= j0+1; ++j) {
-            S_value += 0.5 * u(i,j) * laplacian(u, i, j) + rho(i,j) * u(i,j);
+    for (int i = i0-1; i <= i0+1; ++i)
+        for (int j = j0-1; j <= j0+1; ++j) {
+            S_value += 0.5 * u_loc(i, j) * lap(i, j) + rho(i, j) * u_loc(i, j);
         }
-    }
     return -S_value * dx * dx;
 }
+
+
 
 void PoissonSolver::gridSaver(const Grid& g, const std::string& name) const {
     std::ofstream out(name);
@@ -86,50 +96,37 @@ void PoissonSolver::run(int iterations, bool flag) {
     }
 }
 
-void PoissonSolver::runParabolic(int iterations) {
-    std::ofstream sFile("S(iteration)" + addon + ".csv");
-    sFile << "iteration,S\n";
+void PoissonSolver::runParabolic(int iterations)
+{
+    std::ofstream fout("S(iteration)" + addon + ".csv");
+    fout << "iteration,S\n";
+    fout << 0 << ',' << S() << '\n';
 
-    double Sglob = S();
-    sFile << 0 << ',' << Sglob << '\n';
+    for (int iter = 1; iter <= iterations; ++iter)
+    {
+        for (int i = 1; i < 2 * N; ++i)
+            for (int j = 1; j < 2 * N; ++j)
+            {
+                double S0  = Sloc(i,j, 0.0);
+                double S05 = Sloc(i,j, 0.5);
+                double S1  = Sloc(i,j, 1.0);
 
-    constexpr double testDelta[3] = {0.0, 0.5, 1.0};
+                double denom = S0 - 2*S05 + S1;
+                double delta4 = (std::fabs(denom) > 1e-12) ? 0.25 * (3*S0 - 4*S05 + S1) / denom : 0.0;
 
-    for(int iter = 1; iter <= iterations; ++iter) {
-        for (int i = 1; i < 2 * N; ++i) {
-            for(int j = 1; j < 2 * N; ++j) {
+                const double cand[4] = {0.0, 0.5, 1.0, delta4};
+                double bestDelta = 0.0, bestS = S0;
 
-                Sglob -= Sloc(i,j);
-
-                double Sval[3];
-                const double temp = u(i,j);
-                for(int k=0; k<3; ++k) {
-                    u(i,j) = temp + testDelta[k];
-                    Sval[k] = Sloc(i,j);
-                }
-                u(i,j) = temp;
-                double denominator = Sval[0] - 2*Sval[1] + Sval[2];
-                if(std::fabs(denominator) < 1e-12) {
-                    denominator = 1e-12;
-                }
-                const double delta4 = 0.25 * (3*Sval[0] -4*Sval[1] +Sval[2]) / denominator;
-
-                double deltas[4] = {0.0, 0.5, 1.0, delta4};
-                double Sbest = std::numeric_limits<double>::infinity();
-                double bestDelta = 0.0;
-
-                for(double d : deltas) {
-                    u(i,j) = temp + d;
-                    double Slocal = Sloc(i, j);
-                    if(Slocal < Sbest) {
-                        Sbest = Slocal;
-                        bestDelta = d;
+                for (double d : cand) {
+                    double Sd = Sloc(i,j, d);
+                    if (Sd < bestS) {
+                        bestS = Sd; bestDelta = d;
                     }
                 }
-                u(i,j) = temp + bestDelta;
-                Sglob += Sbest;
+
+                u(i,j) += bestDelta;
             }
-        }
-        sFile << iter << ',' << Sglob << '\n';
+
+        fout << iter << ',' << S() << '\n';
     }
 }

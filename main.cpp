@@ -5,8 +5,8 @@ int main() {
     constexpr double dx = 1.0;
     constexpr double d = 4.0;
     constexpr double x0 = 4.0;
-    constexpr int itMax = 600;
-    constexpr double itPar = 600;
+    constexpr int itMax = 500;
+    constexpr double itPar = 500;
 
     PoissonSolver solver1(N, dx, d, x0, 1, "zad1");
     solver1.run(itMax, true);
