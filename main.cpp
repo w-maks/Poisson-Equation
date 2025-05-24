@@ -24,7 +24,7 @@ int main() {
     //solver4.runGradient(itMax, {0.45, 0.46, 0.47, 0.48, 0.49, 0.495, 0.497, 0.5});
 
     SolverRandom solver5(N, dx, d, x0, 1, "zad5");
-    solver5.runRandom(itMax, 0.2);
+    solver5.runRandom(itMax, {0.1, 0.2, 0.3, 0.5, 1});
 
     return 0;
 }

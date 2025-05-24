@@ -6,7 +6,7 @@
 class SolverRandom : public PoissonSolver {
 public:
     using PoissonSolver::PoissonSolver;
-    void runRandom(int iterations, double r = 0.3);
+    void runRandom(int iterations, const std::vector<double>& rs);
 };
 #endif
 
