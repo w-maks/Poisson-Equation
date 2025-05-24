@@ -8,7 +8,15 @@ include_directories(.)
 add_executable(Poisson_Equation
     grid.cpp
     grid.hpp
-        solver.cpp
-        solver.hpp
+        poissonSolver.cpp
+        poissonSolver.hpp
         main.cpp
+        solverSOR.cpp
+        solverSOR.hpp
+        solverParabolic.cpp
+        solverParabolic.hpp
+        solverGradient.cpp
+        solverGradient.hpp
+        solverRandom.cpp
+        solverRandom.hpp
 )

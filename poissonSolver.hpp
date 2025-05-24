@@ -6,11 +6,8 @@
 class PoissonSolver {
 public:
     PoissonSolver(int N, double dx, double d, double x0, double omega = 1.0, std::string addon = "");
-    void run(int iterations, bool flag=false);
-    void runParabolic(int iterations);
-    void runGradient(int iterations, const std::vector<double>& betas = {0.45, 0.46, 0.47, 0.48, 0.49, 0.495, 0.497, 0.5}, double delta = 0.001);
 
-private:
+protected:
     const int N;
     const double dx, d, x0;
     const double omega;

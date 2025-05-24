@@ -56,8 +56,8 @@ build CMakeFiles/Poisson_Equation.dir/grid.cpp.o: CXX_COMPILER__Poisson_Equation
   OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
   OBJECT_FILE_DIR = CMakeFiles/Poisson_Equation.dir
 
-build CMakeFiles/Poisson_Equation.dir/solver.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/solver.cpp || cmake_object_order_depends_target_Poisson_Equation
-  DEP_FILE = CMakeFiles/Poisson_Equation.dir/solver.cpp.o.d
+build CMakeFiles/Poisson_Equation.dir/poissonSolver.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/poissonSolver.cpp || cmake_object_order_depends_target_Poisson_Equation
+  DEP_FILE = CMakeFiles/Poisson_Equation.dir/poissonSolver.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -I/home/rime/Poisson-Equation/.
   OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
@@ -65,6 +65,34 @@ build CMakeFiles/Poisson_Equation.dir/solver.cpp.o: CXX_COMPILER__Poisson_Equati
 
 build CMakeFiles/Poisson_Equation.dir/main.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/main.cpp || cmake_object_order_depends_target_Poisson_Equation
   DEP_FILE = CMakeFiles/Poisson_Equation.dir/main.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/rime/Poisson-Equation/.
+  OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
+  OBJECT_FILE_DIR = CMakeFiles/Poisson_Equation.dir
+
+build CMakeFiles/Poisson_Equation.dir/solverSOR.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/solverSOR.cpp || cmake_object_order_depends_target_Poisson_Equation
+  DEP_FILE = CMakeFiles/Poisson_Equation.dir/solverSOR.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/rime/Poisson-Equation/.
+  OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
+  OBJECT_FILE_DIR = CMakeFiles/Poisson_Equation.dir
+
+build CMakeFiles/Poisson_Equation.dir/solverParabolic.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/solverParabolic.cpp || cmake_object_order_depends_target_Poisson_Equation
+  DEP_FILE = CMakeFiles/Poisson_Equation.dir/solverParabolic.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/rime/Poisson-Equation/.
+  OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
+  OBJECT_FILE_DIR = CMakeFiles/Poisson_Equation.dir
+
+build CMakeFiles/Poisson_Equation.dir/solverGradient.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/solverGradient.cpp || cmake_object_order_depends_target_Poisson_Equation
+  DEP_FILE = CMakeFiles/Poisson_Equation.dir/solverGradient.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/rime/Poisson-Equation/.
+  OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
+  OBJECT_FILE_DIR = CMakeFiles/Poisson_Equation.dir
+
+build CMakeFiles/Poisson_Equation.dir/solverRandom.cpp.o: CXX_COMPILER__Poisson_Equation_unscanned_Debug /home/rime/Poisson-Equation/solverRandom.cpp || cmake_object_order_depends_target_Poisson_Equation
+  DEP_FILE = CMakeFiles/Poisson_Equation.dir/solverRandom.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -I/home/rime/Poisson-Equation/.
   OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
@@ -78,7 +106,7 @@ build CMakeFiles/Poisson_Equation.dir/main.cpp.o: CXX_COMPILER__Poisson_Equation
 #############################################
 # Link the executable Poisson_Equation
 
-build Poisson_Equation: CXX_EXECUTABLE_LINKER__Poisson_Equation_Debug CMakeFiles/Poisson_Equation.dir/grid.cpp.o CMakeFiles/Poisson_Equation.dir/solver.cpp.o CMakeFiles/Poisson_Equation.dir/main.cpp.o
+build Poisson_Equation: CXX_EXECUTABLE_LINKER__Poisson_Equation_Debug CMakeFiles/Poisson_Equation.dir/grid.cpp.o CMakeFiles/Poisson_Equation.dir/poissonSolver.cpp.o CMakeFiles/Poisson_Equation.dir/main.cpp.o CMakeFiles/Poisson_Equation.dir/solverSOR.cpp.o CMakeFiles/Poisson_Equation.dir/solverParabolic.cpp.o CMakeFiles/Poisson_Equation.dir/solverGradient.cpp.o CMakeFiles/Poisson_Equation.dir/solverRandom.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Poisson_Equation.dir
   POST_BUILD = :
